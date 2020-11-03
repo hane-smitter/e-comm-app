@@ -1,0 +1,27 @@
+<h2>Sell with MMUSIFY</h2>
+<h4>upload your product with us</h4>
+{{#if errors}}
+    {{#each errors}}
+        <p style="color: var(--danger);">{{err}}</p>
+    {{/each}}
+{{/if}}
+
+{{#if success}}
+    <p style="color: var(--success);">{{success}}</p>
+{{/if}}
+<form action="/upload" method="post" enctype="multipart/form-data">
+    <label for="name">Name:</label>
+    <input type="text" name="name" id="name" required>
+    <br>
+    <label for="price">Price(KES):</label>
+    <input type="number" name="price" id="price" value="0" required>
+    <br>
+    <label for="description">Description:</label>
+    <textarea name="description" id="description"></textarea>
+    <br>
+    <label for="file">Image of your product:</label>
+    <input type="file" name="product-image" id="file" required>
+    <br>
+    <button type="submit" class="btn mt-4">Upload</button>
+</form>
+<script src="/js/upload.js"></script>

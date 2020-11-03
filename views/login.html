@@ -1,0 +1,57 @@
+<div class="wrapper">
+	<div class="video-container">
+		<video loop>
+		<source src="/video/video2.mp4" type="video/mp4">
+	  </video> 
+	</div>
+	
+	<div class="center-container">
+		<!--header-->
+		<div class="header-w3l">
+			<h1>Mmusify sign in form</h1>
+		</div>
+		<!--//header-->
+		<!--main-->
+		<div class="main-content-agile">
+			<div class="wthree-pro">
+				<h2>Sign In</h2>
+			</div>
+			<div class="sub-main-w3">
+				{{#if message.error}}
+					<p style="color: rgba(255, 0, 0, 0.788); text-align: center; margin-top: -27px; line-height: 30px;">{{message.error}}</p>
+				{{/if}}
+				<form action="/za/login" method="post">
+					
+					<div class="icon1">
+						<label for="email">E-mail</label>
+						<input id="email" name="email" type="email" {{#if message.email}} value="{{message.email}}" {{/if}} required>
+					</div>
+					
+					<div class="icon2">
+						<label for="password">Password</label>
+						<input  id="password" name="password" type="password" required="">
+					</div>
+					<div class="rem-w3">
+						<span class="check-w3"><input type="checkbox" />Remember Me</span>
+						<a href="#" >Forgot Password?</a>
+						<div class="clear"></div>
+					</div>
+					<input type="submit" value="Sign in">
+					<h6>or sign in with</h6>
+					<div class="navbar-right social-icons"> 
+						<a href="#" class="one-w3ls" ><i class="fa fa-facebook" aria-hidden="true"></i> Facebook</a>
+						<a href="/za/auth/google" class="two-w3ls" ><i class="fa fa-google" aria-hidden="true"></i>Google</a>
+						<div class="clear"></div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!--//main-->
+		<!--footer-->
+		<div class="footer">
+			<p>&copy; 2020 Mmusify sign in form. All rights reserved</p>
+		</div>
+		<!--//footer-->
+	</div>
+</div>
+<script src="/js/vid.js" type="application/javascript"></script>

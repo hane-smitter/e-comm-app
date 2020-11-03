@@ -1,0 +1,101 @@
+<div class="main-banner inner" id="home">
+    <!-- header -->
+    {{>header}}
+    <!-- /header -->
+</div>
+
+    <!---->
+    <ol class="breadcrumb has-cart">
+        <li class="breadcrumb-item">
+            <a href="/index">Home</a>
+        </li>
+        <li class="breadcrumb-item active">Product Details</li>
+        <li data-num="0" class="cart"><i class="fa fa-shopping-cart"></i></li>
+    </ol>
+    <!---->
+    <!-- cart items -->
+    <div class="container cart-box">
+        <aside class="cart-container hide">
+            <h4 class="text-muted">Shopping bag</h4>
+            <div class="cart-items">
+                <!-- cartitems displayed here -->
+            </div>
+            <div class="cart-total">
+                <p class="h5 text-muted">TOTAL : </p>
+               <span>KES. <span class="cart-total-price">300</span></span>
+            </div>
+            <a href="#" class="btn btn-primary">Buy Now</a>
+        </aside>
+    </div>
+    <!-- /cart items -->
+    <!-- banner -->
+    <section class="ab-info-main py-md-5 py-4">
+        <div class="container py-md-3">
+            <!-- top Products -->
+            <div class="row">
+                <!-- product right -->
+                <div class="left-ads-display col-lg-8">
+                    <div class="row">
+                        <div class="desc1-left col-md-6">
+                            <img src="/za/product/image/{{product._id}}" class="img-fluid item-image" alt="">
+                        </div>
+                        <div class="desc1-right col-md-6 pl-lg-4">
+                            <h3 style="text-transform: capitalize;" class="item-name">{{product.name}}</h3>
+                            <h5 class="item-price">KES. {{product.price}} </h5>
+                            <button data-identity="{{product._id}}" class="btn mt-5 cart-add-btn">ADD TO CART</button>
+                        </div>
+                    </div>
+                    <div class="row sub-para-w3layouts mt-5">
+
+                        <h3 class="shop-sing">{{product.name}}</h3>
+                        <article>
+                            {{{product.description}}}
+                        </article>
+                    </div>
+
+                    {{#if products}}
+                        <h3 class="shop-sing">Featured Products</h3>
+                        <div class="row m-0">
+                            {{#each products}}
+                                <div class="col-md-4 product-men">
+                                    <div class="product-shoe-info shoe text-center">
+                                        <div class="men-thumb-item">
+                                            <img src="/za/product/image/{{_id}}" class="img-fluid item-image" alt="">
+                                            <span class="product-new-top">New</span>
+                                        </div>
+                                        <div class="item-info-product">
+                                            <h4>
+                                                <a href="/product/{{_id}}" class="item-name">{{name}}</a>
+                                            </h4>
+
+                                            <div class="product_price">
+                                                <div class="grid-price">
+                                                    <span class="money item-price">KES. {{price}}</span>
+                                                </div>
+                                            </div>
+                                            <button data-identity="{{_id}}" class="btn m-1 cart-add-btn">ADD TO CART</button>
+                                            <ul class="stars">
+                                                <li><a href="#"><span class="fa fa-star" aria-hidden="true"></span></a></li>
+                                                <li><a href="#"><span class="fa fa-star" aria-hidden="true"></span></a></li>
+                                                <li><a href="#"><span class="fa fa-star-half-o" aria-hidden="true"></span></a></li>
+                                                <li><a href="#"><span class="fa fa-star-half-o" aria-hidden="true"></span></a></li>
+                                                <li><a href="#"><span class="fa fa-star-o" aria-hidden="true"></span></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            {{/each}}
+                        </div>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- //contact -->
+
+<!-- footer -->
+{{>footer}}
+<!-- //footer -->
+
+<script src="/js/monitor.js"></script>
+<script src="/js/cart.js"></script>
