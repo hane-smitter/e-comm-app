@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "env-cmd -r config/config.env-cmdrc -e production node src/index.js",
+    "start": "node src/index.js",
     "dev": "env-cmd -r config/config.env-cmdrc -e development nodemon src/index.js"
   },
   "keywords": [],
