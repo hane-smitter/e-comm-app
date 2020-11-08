@@ -2,6 +2,7 @@ const path = require('path');
 require('./db/mongoose');
 const express = require('express');
 const mongoose = require('mongoose');
+const cors = require('cors');
 const exphbs = require('express-handlebars');
 const methodOverride = require('method-override');
 const morgan = require('morgan');
@@ -15,6 +16,9 @@ const passport = require('passport');
 
 const app = express();
 const port = process.env.PORT;
+
+//set browser cross origin
+app.use(cors());
 
 //configure sessions
 app.use(session({
