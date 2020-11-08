@@ -6,7 +6,7 @@ module.exports = function (passport) {
         new GoogleStategy({
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: '/za/auth/google/cb'
+            callbackURL: 'https://mmusify.herokuapp.com/za/auth/google/cb'
         }, async (accessToken, refreshToken, profile, done) => {
             try{
                 const user = await User.findOrCreate(profile);
