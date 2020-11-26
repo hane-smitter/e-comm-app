@@ -24,11 +24,6 @@ input[type="submit"],
 input[type="text"],
 input[type="email"],
 input[type="search"] {
-    transition: 0.5s all;
-    -webkit-transition: 0.5s all;
-    -moz-transition: 0.5s all;
-    -o-transition: 0.5s all;
-    -ms-transition: 0.5s all;
     font-family: 'Source Sans Pro', sans-serif;
 }
 
@@ -101,7 +96,10 @@ nav {
     margin: 0;
     letter-spacing: 1px;
     color: #fff;
-    font-size: 1em;
+    position: relative;
+    top: -40px;
+    font-family: 'Sansita Swashed', cursive;
+    font-size: 1.4em;
     font-weight: 700;
     text-shadow: 2px 5px 3px rgba(0, 0, 0, 0.06);
 }

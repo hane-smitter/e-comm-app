@@ -81,16 +81,14 @@ router.route('/upload')
             let err = 'Product name should be less than 36 characters long!';
             errors.push({err});
         }
-        if(typeof this.price !== 'number' || isNaN(this.price)) {
-            console.log(this.price);
-            console.log(typeof this.price);
-            let err = 'Price should be a number!';
+        if(typeof +this.price !== 'number' || isNaN(this.price)) {
+            let err = 'Price should be in numbers!';
             errors.push({err});
         }
     }
 
     //validate the client data
-    req.body.price = parseFloat(req.body.price);
+    req.body.price = parseFloat(req.body.price).toFixed(2);
     req.body.validation();
     if(!req.file) {
         let err = 'You must provide an image of your product!'
@@ -107,8 +105,8 @@ router.route('/upload')
     try {
         //resize the image
         const buffer = await sharp(req.file.buffer).resize({
-            width: 300,
-            height: 300
+            width: 200,
+            height: 200
         }).png().toBuffer();
 
         let product = {

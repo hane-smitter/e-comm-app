@@ -1,3 +1,6 @@
-body {
-    background: beige;
+.input-warn {
+    border: .5px solid #dc3545;
+    outline: none;
+    box-shadow: -1px -1px 5px #dc3545,
+                0.5px 0.5px 4px #fd7e14;
 }

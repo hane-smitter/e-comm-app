@@ -23,10 +23,6 @@ const authenticate = async (req, res, next) => {
     if (req.session.user) {
         //To be used in views
         res.locals.user = req.session.user;
-        console.log('res.locals.user');
-        console.log(res.locals.user);
-        console.log('req.session.user');
-        console.log(req.session.user);
         try {
             const user = await User.findById(req.session.user);
             if(!user) {

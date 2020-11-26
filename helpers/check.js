@@ -20,6 +20,9 @@ const checkAuth = (user) => {
     }
 }
 
+const trimPrice = (price) => parseFloat(price).toFixed(2);
+
 module.exports = {
-    checkAuth
+    checkAuth,
+    trimPrice
 }

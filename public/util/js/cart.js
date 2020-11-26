@@ -85,9 +85,8 @@ function updateCartTotal() {
     for(let i = 0; i < cartProductItems.length; i++) {
         let txtPrice = cartProductItems[i].getElementsByClassName('item-price')[0].textContent;
         
-
         let priceArr = txtPrice.split('.');
-        let price = parseFloat(priceArr[priceArr.length - 1]);
+        let price = parseFloat(priceArr[1] + '.' + priceArr[priceArr.length - 1]);
 
         let quantity = cartProductItems[i].querySelector('.quantity input').value;
         quantity = parseInt(quantity);
@@ -95,7 +94,7 @@ function updateCartTotal() {
         price *= quantity;
 
         totalCartPrice += price;
-        cartTotalPrice.textContent = totalCartPrice;
+        cartTotalPrice.textContent = totalCartPrice.toFixed(2);
     }
 }
 

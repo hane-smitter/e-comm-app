@@ -11,7 +11,7 @@ const MongoStore = require('connect-mongo')(session);
 const {authenticate} = require('./middleware/auth');
 const products = require('./routes/products');
 const routes = require('./routes/routes');
-const {checkAuth} = require('../helpers/check');
+const {checkAuth, trimPrice} = require('../helpers/check');
 const passport = require('passport');
 
 const app = express();
@@ -50,7 +50,8 @@ app.use(express.static(publicDir));
 
 //configure view engine
 app.engine('.html', exphbs({defaultLayout: 'main', extname: '.html', helpers: {
-    checkAuth
+    checkAuth,
+    trimPrice
 }}));
 app.set('view engine', '.html');
 

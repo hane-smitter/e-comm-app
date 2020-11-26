@@ -1,4 +1,3 @@
-console.log('monitorjs is running!');
 //vars being used here and cartjs
 const cartIcon = document.getElementsByClassName('cart')[0];
 const cartContainer = document.getElementsByClassName('cart-container')[0];//aside tag
@@ -17,14 +16,10 @@ const callback = (MutationsList) => {
     for(let i = 0; i < MutationsList.length; i++) {
         console.log(MutationsList[i].addedNodes);
         if(MutationsList[i].addedNodes.length > 0) {
-            console.log('MutationsList[i].addedNodes.length');
-            console.log(MutationsList[i].addedNodes);
             const addedEl = MutationsList[i].addedNodes;
-            console.log(addedEl);
 
             for(let index = 0; index < addedEl.length; index++) {
                 let newNodeEntry = MutationsList[i].addedNodes[index];
-                console.log(newNodeEntry);
                 if(!newNodeEntry) {
                     newNodeEntry = MutationsList[i].addedNodes[index];
                 }
@@ -51,7 +46,6 @@ Observer.observe(targetNode, config);
 
 /* function definitions */
 const fetchCartItems = () => {
-    console.log('hey called in cartjs, running from monitorjs');
     var xhr = new XMLHttpRequest();
     xhr.onload = function() {
         if(this.status >= 200 && this.status < 300) {
@@ -83,7 +77,7 @@ const fetchCartItems = () => {
                         
                     </div>
         
-                    <div class="item-price">KES.${cartProduct.price}</div>`; 
+                    <div class="item-price">KES.${(cartProduct.price).toFixed(2)}</div>`; 
 
                     item.innerHTML = html;
                     cartItemsContainer.insertAdjacentElement('beforeend', item);
