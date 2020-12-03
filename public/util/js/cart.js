@@ -8,7 +8,11 @@ updateCartTotal();
 
 //view items in the cart
 cartIcon.addEventListener('click', function() {
-    cartContainer.classList.toggle('hide');
+    cartContainerBox.classList.toggle('hide');
+});
+//close opened cart
+cartBoxCloseIcon.addEventListener('click', function() {
+    cartContainerBox.classList.toggle('hide');
 });
 
 //Add to cart buttons
@@ -37,14 +41,17 @@ for(let i = 0; i < addToCartBtns.length; i++) {
         let item = document.createElement('div');
         item.classList.add('item');
         let html = `<div class="item">
-            <button class="btn btn-danger delete-btn" data-item-id="${e.currentTarget.dataset.identity}">
-                <i class="fa fa-remove"></i>
-            </button>
-
+            
             <div class="image">
                 <img src="${itemImg.src}" alt="">
             </div>
-            <span class="title">${itemName.textContent}</span>
+            
+            <div class="group">
+                <span class="title">${itemName.textContent}</span>
+
+                <div class="item-price">${itemPrice.textContent}</div>
+            </div>
+
 
             <div class="quantity">
                 <button class="btn btn-minus" data-item-id="${e.currentTarget.dataset.identity}">
@@ -57,8 +64,11 @@ for(let i = 0; i < addToCartBtns.length; i++) {
                 
             </div>
 
-            <div class="item-price">${itemPrice.textContent}</div>
-            </div>`;
+            <button class="btn btn-outline-danger delete-btn" data-item-id="${e.currentTarget.dataset.identity}">
+                <i class="fa fa-remove"></i>
+                remove
+            </button>
+        </div>`;
         item.innerHTML = html;
         cartItemsContainer.insertAdjacentHTML('afterbegin', html);
         //push changes to server side

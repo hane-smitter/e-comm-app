@@ -22,7 +22,15 @@ const authenticate = async (req, res, next) => {
 
     if (req.session.user) {
         //To be used in views
-        res.locals.user = req.session.user;
+        function setLocalUser () {
+            return new Promise((resolve, reject) => {
+                if (req.session.user) {
+                    res.locals.user = req.session.user;
+                    resolve('user set');
+                }
+            });
+        }
+        await setLocalUser();
         try {
             const user = await User.findById(req.session.user);
             if(!user) {

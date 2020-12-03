@@ -1,5 +1,7 @@
 //vars being used here and cartjs
 const cartIcon = document.getElementsByClassName('cart')[0];
+const cartContainerBox = document.getElementsByClassName('cart-box')[0];
+const cartBoxCloseIcon = document.getElementsByClassName('cart-close')[0];
 const cartContainer = document.getElementsByClassName('cart-container')[0];//aside tag
 const cartItemsContainer = cartContainer.getElementsByClassName('cart-items')[0];//div tag
 const addToCartBtns = document.getElementsByClassName('cart-add-btn');
@@ -57,14 +59,16 @@ const fetchCartItems = () => {
             cartProducts.forEach(cartProduct => {
                 let item = document.createElement('div');
                 item.classList.add('item');
-                let html = `<button class="btn btn-danger delete-btn" data-item-id="${cartProduct._id}">
-                        <i class="fa fa-remove"></i>
-                    </button>
-        
-                    <div class="image">
+                let html = ` <div class="image">
                         <img src="/za/product/image/${cartProduct._id}" alt="">
                     </div>
-                    <span class="title">${cartProduct.name}</span>
+
+                    <div class="group">
+                        <span class="title">${cartProduct.name}</span>
+
+                        <div class="item-price">KES.${(cartProduct.price).toFixed(2)}</div>
+                    </div>
+
         
                     <div class="quantity">
                         <button class="btn btn-minus" data-item-id="${cartProduct._id}">
@@ -77,7 +81,10 @@ const fetchCartItems = () => {
                         
                     </div>
         
-                    <div class="item-price">KES.${(cartProduct.price).toFixed(2)}</div>`; 
+                    <button class="btn btn-outline-danger delete-btn" data-item-id="${cartProduct._id}">
+                        <i class="fa fa-remove"></i>
+                        remove
+                    </button> `; 
 
                     item.innerHTML = html;
                     cartItemsContainer.insertAdjacentElement('beforeend', item);

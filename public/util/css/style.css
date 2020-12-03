@@ -605,6 +605,8 @@ ul.tic-info li {
 .product-shoe-info {
     padding: 15px;
     border: 1px solid #e4e4e4;
+    transform: translateY(0);
+    transition: box-shadow,transform 200ms ease-in;
 }
 
 .item-info-product h4 a {
@@ -754,7 +756,12 @@ ul.list-unstyled.w3layouts-icons.clients li span:hover {
 
 /*-- //testimonials --*/
 .men-thumb-item{
-   position: relative;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    row-gap: 5px;
 }
 .item-info-product h4 {
     margin-top: 0.5em;
@@ -828,30 +835,39 @@ li.cart:hover::after {
     transform: rotate(-15deg);
 }
 .cart-box{
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding-top: 100px;
+    height: 100%;
+    z-index: 200;
+    background-color: rgba(239, 238, 238, .98);
+    display: grid;
+    justify-content: center;
+    align-content: center;
+}
+.cart-box.hide {
+    display: none;
+}
+.cart-box .cart-close {
+    color: #333;
+    font-size: 30px;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    cursor: pointer;
 }
 aside.cart-container {
-    width: 100%;
-    min-height: 423px;
-    max-height: 600px;
-    resize: vertical;
-    padding: 10px;
-    background-color: #ccc;
-    position: absolute;
-    top: 0;
-    right: 0;
-    border-radius: 6px;
+    border-radius: 50px;
+    background: #efeeee;
+    box-shadow:  20px 20px 60px #cbcaca, 
+                -20px -20px 60px #ffffff;
+    min-width: 700px;
+    padding: 20px;
+    max-height: 700px;
+    overflow-x: hidden;
     overflow-y: auto;
-    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.15);
-    z-index: 200;
-    transition: transform 200ms ease-in;
-    transform: translateY(0) scale(1);
-    pointer-events: unset;
-    transform-origin: top right;
-}
-aside.cart-container.hide {
-    transform: translateY(-70px) scale(0);
-    pointer-events: none;
 }
 .cart-container h4 {
     height: 60px;
@@ -878,8 +894,15 @@ aside.cart-container .cart-items .item:last-child {
     margin-bottom: 0;
     padding-bottom: 10px;
 }
+aside.cart-container .cart-items .item .group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 aside.cart-container .cart-items .item .title {
     text-transform: capitalize;
+    margin-bottom: 10px;
 }
 .cart-container .item input {
     width: 30px;
@@ -1278,6 +1301,11 @@ a.move-top span {
 /*-- //to-top --*/
 
 @media(max-width:1366px) {
+    .product-shoe-info:hover {
+        transform: translateY(-20px);
+        box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, .3),
+                    6px 6px 6px 4px rgba(0, 0, 0, .1);
+    }
     .main-banner {
         height: 45em;
     }
@@ -1370,6 +1398,10 @@ a.move-top span {
 /*** Responsive Menu For Smaller Device ***/
 
 @media screen and (max-width:900px) {
+    .cart-box .cart-close {
+        top: 20px;
+        right: 20px;
+    }
     .dropdown-menu {
         width: 100%;
     }
@@ -1390,15 +1422,19 @@ a.move-top span {
         width: max-content;
         min-height: 350px;
     }
-    aside.cart-container .cart-items .item {
+    /* aside.cart-container .cart-items .item {
         flex-direction: column;
-    }
-    aside.cart-container .cart-items .item > * {
+    } */
+    /* aside.cart-container .cart-items .item > * {
         margin: 5px 0;
-    }
+    } */
 }
 
 @media(max-width:800px) {
+    .cart-box .cart-close {
+        top: 10px;
+        right: 10px;
+    }
     .main-banner.inner {
         height: 12em;
     }
@@ -1415,6 +1451,14 @@ a.move-top span {
 }
 
 @media(max-width:768px) {
+    
+.product-shoe-info:hover {
+    transform: none;
+    box-shadow: none;
+}
+.product-shoe-info:active {
+    transform: scale(1.15);
+}
     .banner-info {
         padding: 11em 0 0em 1em;
         width: 58%;
@@ -1427,6 +1471,56 @@ a.move-top span {
 }
 
 @media(max-width:767px) {
+    /* cart */
+    aside.cart-container {
+        min-width: 600px;
+    }
+    .cart-box .cart-close {
+        right: 30px;
+    }
+    aside.cart-container .cart-items .item {
+        display: block;
+        padding: 10px 20px;
+        position: relative;
+        /* margin: 10px 0; */
+        border-bottom: none;
+        border-radius: 30px;
+        background: #dddddd;
+        box-shadow:  20px 20px 60px #bcbcbc, 
+                    -10px -1px 60px #fefefe;
+    }
+    aside.cart-container .cart-items .item:first-child{
+        box-shadow:  20px 20px 60px #bcbcbc, 
+                    -10px -10px 60px #fefefe;
+    }
+    aside.cart-container .cart-items .item:last-child {
+        border-bottom: 1px solid #e1e8ee;
+        margin-bottom: 0;
+        padding-bottom: 10px;
+        box-shadow:  20px 1px 60px #bcbcbc, 
+                    -10px -1px 60px #fefefe;
+    }
+    aside.cart-container .cart-items .item > div:not(.quantity) {
+        float: left;
+    }
+    aside.cart-container .cart-items .item .image {
+        margin-right: 15px;
+        margin-bottom: 5px;
+    }
+    aside.cart-container .cart-items .item .quantity {
+        clear: left;
+        padding-top: 20px;
+        border-top: 1px solid #efeefe
+    }
+    aside.cart-container .cart-items .item .group {
+        align-items: flex-start;
+    }
+    aside.cart-container .cart-items .item .delete-btn {
+        position: absolute;
+        bottom: 10px;
+        right: 20px;
+    }
+    /* /cart */
     .icon-gd-info {
         text-align: center;
     }
@@ -1470,6 +1564,11 @@ a.move-top span {
 }
 
 @media(max-width:640px) {
+    /* cart */
+    aside.cart-container {
+        min-width: 500px;
+    }
+    /* /cart */
     .main-banner {
         height: 28em;
     }
@@ -1488,6 +1587,11 @@ a.move-top span {
 }
 
 @media(max-width:568px) {
+    /* cart */
+    aside.cart-container {
+        min-width: 400px;
+    }
+    /* /cart */
     .banner-info h3 {
         font-size: 2em;
         letter-spacing: 2px;
@@ -1524,6 +1628,11 @@ a.move-top span {
 }
 
 @media(max-width:440px) {
+    /* cart */
+    aside.cart-container {
+        min-width: 300px;
+    }
+    /* /cart */
     .banner-info {
         padding:8em 0 0em 1em;
         width: 68%;
