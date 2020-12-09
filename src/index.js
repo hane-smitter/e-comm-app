@@ -8,6 +8,8 @@ const methodOverride = require('method-override');
 const morgan = require('morgan');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+const hsts = require('hsts');
+
 const {authenticate} = require('./middleware/auth');
 const products = require('./routes/products');
 const routes = require('./routes/routes');
@@ -19,6 +21,13 @@ const port = process.env.PORT;
 
 //set browser cross origin
 app.use(cors());
+
+//ensure https connection
+app.use(hsts({
+    maxAge: 31536000,        // Must be at least 1 year to be approved
+    includeSubDomains: true, // Must be enabled to be approved
+    preload: true
+  }))
 
 //configure sessions
 app.use(session({
