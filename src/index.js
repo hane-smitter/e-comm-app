@@ -8,7 +8,7 @@ const methodOverride = require('method-override');
 const morgan = require('morgan');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
-const hsts = require('hsts');
+const express_enforces_ssl = require('express-enforces-ssl');
 
 const {authenticate} = require('./middleware/auth');
 const products = require('./routes/products');
@@ -22,12 +22,15 @@ const port = process.env.PORT;
 //set browser cross origin
 app.use(cors());
 
-//ensure https connection
-app.use(hsts({
-    maxAge: 31536000,        // Must be at least 1 year to be approved
-    includeSubDomains: true, // Must be enabled to be approved
-    preload: true
-  }))
+//logger
+if(process.env.NODE_ENV == 'development') {
+    app.use(morgan('dev'));
+}
+
+//enforce secure connection
+if(process.env.NODE_ENV == 'production') {
+    app.use(express_enforces_ssl());
+}
 
 //configure sessions
 app.use(session({
@@ -49,10 +52,6 @@ app.use(methodOverride( function(req, res) {
     }
 } ));
 
-//logger
-if(process.env.NODE_ENV == 'development') {
-    app.use(morgan('dev'));
-}
 //use a static folder
 const publicDir = path.join(__dirname, '../public/util');
 app.use(express.static(publicDir));
