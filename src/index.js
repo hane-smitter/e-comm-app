@@ -27,6 +27,7 @@ if(process.env.NODE_ENV == 'development') {
     app.use(morgan('dev'));
 } else{
     //enforce secure connection
+    app.enable('trust proxy');
     app.use(express_enforces_ssl());
 }
 
