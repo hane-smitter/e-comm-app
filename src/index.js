@@ -22,13 +22,11 @@ const port = process.env.PORT;
 //set browser cross origin
 app.use(cors());
 
-//logger
 if(process.env.NODE_ENV == 'development') {
+    //logger
     app.use(morgan('dev'));
-}
-
-//enforce secure connection
-if(process.env.NODE_ENV == 'production') {
+} else{
+    //enforce secure connection
     app.use(express_enforces_ssl());
 }
 
