@@ -1,27 +1,52 @@
-<h2>Sell with MMUSIFY</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link href="/css/errors.css" rel="stylesheet">
+    <title>sell on mmusify</title>
+</head>
+<body>
+    <h2>Sell with MMUSIFY</h2>
 <h4>upload your product with us</h4>
 {{#if errors}}
     {{#each errors}}
-        <p style="color: var(--danger);">{{err}}</p>
+        <p style="color: var(--red);" class="bg-warning text-center">{{err}}</p>
     {{/each}}
 {{/if}}
 
 {{#if success}}
-    <p style="color: var(--success);">{{success}}</p>
+    <p class="bg-success text-center">{{success}}</p>
 {{/if}}
 <form action="/upload" method="post" enctype="multipart/form-data" onsubmit="return controlSubmit()">
     <label for="name">Name:</label>
-    <input type="text" name="name" id="name" required>
+    <input type="text" name="name" id="name" value="{{#if values}}{{values.name}}{{/if}}" placeholder="name of your product" required>
     <br>
     <label for="price">Price(KES):</label>
-    <input type="text" name="price" id="price" value="0.00" required>
+    <input type="text" name="price" id="price" value="{{#if values}}{{values.price}}{{/if}}" placeholder="for example, 2.58" required>
     <br>
     <label for="description">Description:</label>
-    <textarea name="description" id="description"></textarea>
+    <textarea name="description" id="description" >
+        {{#if values}}{{values.description}}{{/if}}
+    </textarea>
     <br>
     <label for="file">Image of your product:</label>
-    <input type="file" name="product-image" id="file" required>
+    <input type="file" name="product-image" id="file" accept="image/jpg, image/jpeg, image/png" required>
     <br>
     <button type="submit" class="btn mt-4">Upload</button>
 </form>
 <script src="/js/upload.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script>
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#description' ), {
+            toolbar: [ 'bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote', 'link', 'indent' ]
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
+
+</script>
+</body>
+</html>

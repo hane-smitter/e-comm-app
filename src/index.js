@@ -68,6 +68,10 @@ app.use( async function (req, res, next) {
     return authenticate(req, res, next);
     
 });
+app.use( (req, res, next) => {
+    res.locals.user = req.session.user || false;
+    next();
+} );
 
 //Third party logins
 /* google auth */

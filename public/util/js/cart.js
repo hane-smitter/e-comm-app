@@ -37,48 +37,81 @@ for(let i = 0; i < addToCartBtns.length; i++) {
             alert('item already in cart');
             return;
         }
-
-        let item = document.createElement('div');
-        item.classList.add('item');
-        let html = `<div class="item">
-            
-            <div class="image">
-                <img src="${itemImg.src}" alt="">
-            </div>
-            
-            <div class="group">
-                <span class="title">${itemName.textContent}</span>
-
-                <div class="item-price">${itemPrice.textContent}</div>
-            </div>
-
-
-            <div class="quantity">
-                <button class="btn btn-minus" data-item-id="${e.currentTarget.dataset.identity}">
-                    <i class="fa fa-minus"></i>
-                </button>
-                <input type="text" value="1" readonly class="quantity-input">
-                <button class="btn btn-plus" data-item-id="${e.currentTarget.dataset.identity}">
-                    <i class="fa fa-plus"></i>
-                </button>
-                
-            </div>
-
-            <button class="btn btn-outline-danger delete-btn" data-item-id="${e.currentTarget.dataset.identity}">
-                <i class="fa fa-remove"></i>
-                remove
-            </button>
-        </div>`;
-        item.innerHTML = html;
-        cartItemsContainer.insertAdjacentHTML('afterbegin', html);
-        //push changes to server side
+        //create cart item on the server side
         const prod_id = e.currentTarget.dataset.identity;
-        createCartItem(prod_id);
+        this.disabled = true;
+        createCartItem(prod_id)
+            .then(({done, msg} = data) => {
+                console.log('from then');
+
+                //create item on the client's browser
+                let item = document.createElement('div');
+                item.classList.add('item');
+                let html = `<div class="item">
+                    
+                    <div class="image">
+                        <img src="${itemImg.src}" alt="shoe" onclick="window.location.href = '/product/${this.dataset.identity}'">
+                    </div>
+                    
+                    <div class="group">
+                        <span class="title">${itemName.textContent}</span>
+
+                        <div class="item-price">${itemPrice.textContent}</div>
+                    </div>
+
+
+                    <div class="quantity">
+                        <button class="btn btn-minus" data-item-id="${this.dataset.identity}">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <input type="text" value="1" readonly class="quantity-input">
+                        <button class="btn btn-plus" data-item-id="${this.dataset.identity}">
+                            <i class="fa fa-plus"></i>
+                        </button>
+                        
+                    </div>
+
+                    <button class="btn btn-outline-danger delete-btn" data-item-id="${this.dataset.identity}">
+                        <i class="fa fa-remove"></i>
+                        remove
+                    </button>
+                </div>`;
+                item.innerHTML = html;
+                cartItemsContainer.insertAdjacentHTML('afterbegin', html); 
+
+                //adding more information to msg
+                msg += '!Added to cart.'
+                cartActivityFeed(done, msg);
+                this.disabled = false;
+            }, ({done, msg} = err) => {
+                cartActivityFeed(done, msg);
+                this.disabled = false;
+            });
     });
 }
 
 
 /* function definitions */
+//cart activity feeds
+function cartActivityFeed(done, msg) {
+    if(document.querySelector('.cart-action-feeds')) {
+        document.querySelector('.cart-action-feeds').remove();
+        clearTimeout(window.timeOutId);
+    }
+    let paragraph = document.createElement('p');
+    paragraph.textContent = msg;
+    if(!done){
+        paragraph.classList.add('cart-action-feeds', 'text-center', 'bg-warning');
+    } else {
+        paragraph.classList.add('cart-action-feeds', 'text-center', 'text-light', 'bg-success');
+    }
+    document.body.appendChild(paragraph);
+
+    const timeOutId = setTimeout(() => {
+        document.querySelector('.cart-action-feeds').remove();
+    }, 3000);
+    window.timeOutId = timeOutId;
+}
 
 //get number of items in cart
 function countCartItems() {
@@ -122,31 +155,51 @@ for(let i = 0; i < removeCartItemBtns.length; i++) {
 
 //add quantity correctly
 function  quantityPlus() {
+    this.disabled = true;
     let cartQuantityInput = event.currentTarget.previousElementSibling;
     let productId = event.currentTarget.dataset.itemId;
     let current = parseInt(cartQuantityInput.value);
-    cartQuantityInput.value = ++current;
-    updateCartTotal();
-    //server side
-    updateCartItem(current, productId);
+
+    updateCartItem(current, productId)
+        .then(() => {
+            updateCartTotal();
+            cartQuantityInput.value = ++current;
+            this.disabled = false;
+        }, ({done, msg} = err) => {
+            cartActivityFeed(done, msg);
+            this.disabled = false;
+        }); 
 }
 //reduce quantity correctly
 function  quantityMinus() {
+    this.disabled = true;
     cartQuantityInput = event.currentTarget.nextElementSibling;
     let productId = event.currentTarget.dataset.itemId;
     let current = parseInt(cartQuantityInput.value);
-    current = --current;
-    if(current < 1) {
-        return cartQuantityInput.value = 1;
-    }
-    cartQuantityInput.value = current;
-    updateCartTotal();
-    //server side
-    updateCartItem(current, productId);
+    updateCartItem(current, productId)
+        .then(() => {
+            current = --current;
+            if(current < 1) {
+                return cartQuantityInput.value = 1;
+            }
+            cartQuantityInput.value = current;
+            updateCartTotal();
+            this.disabled = false;
+        })
+        .catch(({done, msg} = err) => {
+            cartActivityFeed(done, msg);
+            this.disabled = false;
+        });
 }
 //remove item from cart correctly
 function removeCartItem() {
-    let productId = event.currentTarget.dataset.itemId;
-    event.currentTarget.parentElement.remove();
-    unlinkCartItem(productId);
+    let productId = this.dataset.itemId;
+    unlinkCartItem(productId)
+        .then(({done, msg} = data) => {
+            this.parentElement.remove();
+            msg += '!Item removed.';
+            cartActivityFeed(done, msg);
+        }, ({done, msg} = err) => {
+            cartActivityFeed(done, msg);
+        });
 }

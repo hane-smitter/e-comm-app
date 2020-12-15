@@ -862,7 +862,7 @@ aside.cart-container {
     border-radius: 50px;
     background: #efeeee;
     box-shadow:  20px 20px 60px #cbcaca, 
-                -20px -20px 60px #ffffff;
+                -20px -20px 60px rgba(255, 255, 255, .7);
     min-width: 700px;
     padding: 20px;
     max-height: 700px;
@@ -914,6 +914,17 @@ aside.cart-container .cart-items .item .title {
 aside.cart-container .cart-total {
     display: flex;
     justify-content: space-evenly;
+}
+.cart-action-feeds {
+    border: 2px solid;
+    color: #333;
+    position: fixed;
+    top: 15px;
+    left: 0;
+    padding: 10px 0;
+    right: 0;
+    z-index: 1000;
+    pointer-events: none;
 }
 /* /cart items */
 
@@ -1301,10 +1312,10 @@ a.move-top span {
 /*-- //to-top --*/
 
 @media(max-width:1366px) {
-    .product-shoe-info:hover {
-        transform: translateY(-20px);
-        box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, .3),
-                    6px 6px 6px 4px rgba(0, 0, 0, .1);
+    .product-shoe-info.hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 7px 7px 10px 0 rgba(76, 110, 245, .1);
+        background: #fff;
     }
     .main-banner {
         height: 45em;
@@ -1451,14 +1462,9 @@ a.move-top span {
 }
 
 @media(max-width:768px) {
-    
-.product-shoe-info:hover {
-    transform: none;
-    box-shadow: none;
-}
-.product-shoe-info:active {
-    transform: scale(1.15);
-}
+    .product-shoe-info:not(.hover):active {
+        transform: scale(1.05);
+    }
     .banner-info {
         padding: 11em 0 0em 1em;
         width: 58%;

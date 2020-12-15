@@ -27,7 +27,7 @@ router.get('/products', async (req, res) => {
     res.render('products', {products});
 });
 //serving up specific product image binaries
-router.get('/za/product/image/:id', async (req, res) => {
+router.get('/util/product/image/:id', async (req, res) => {
     try {
         const product = await Product.findById(req.params.id);
         const buffer = product.image;
@@ -67,7 +67,7 @@ router.get('/product/:id', async (req, res) => {
 router.route('/upload')
 /* upload page */
 .get((req, res) => {
-    res.render('upload');
+    res.render('upload', {layout: false});
 })
 /* upload */
 .post(upload.single('product-image'),async (req, res) => {
@@ -90,14 +90,23 @@ router.route('/upload')
     //validate the client data
     req.body.price = parseFloat(req.body.price).toFixed(2);
     req.body.validation();
+    var nameExists = await Product.findOne({ name: req.body.name.toLowerCase() });
+    if (nameExists) {
+        errors.push({err: 'This name has been taken'});
+    }
     if(!req.file) {
-        let err = 'You must provide an image of your product!'
+        let err = 'You must provide an image of your product!';
         errors.push({err});
     }
 
+    let values = Object.assign({}, req.body);
+    console.log(req.file);
+
     if(errors.length > 0) {
         return res.status(400).render('upload', {
-            errors
+            errors,
+            layout: false,
+            values
         });
     }
 

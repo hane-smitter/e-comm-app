@@ -60,13 +60,13 @@ const fetchCartItems = () => {
                 let item = document.createElement('div');
                 item.classList.add('item');
                 let html = ` <div class="image">
-                        <img src="/za/product/image/${cartProduct._id}" alt="">
+                        <img src="/util/product/image/${cartProduct._id}" alt="shoe" onclick="window.location.href = '/product/${cartProduct._id}'">
                     </div>
 
                     <div class="group">
                         <span class="title">${cartProduct.name}</span>
 
-                        <div class="item-price">KES.${(cartProduct.price).toFixed(2)}</div>
+                        <div class="item-price">KES. ${(cartProduct.price).toFixed(2)}</div>
                     </div>
 
         
@@ -98,39 +98,61 @@ const fetchCartItems = () => {
     xhr.send();
 }
 const createCartItem = (productId, quantity = 1) => {
-    var xhr = new XMLHttpRequest();
-    var params = `productId=${productId}&quantity=${quantity}`;
-    xhr.onload = function() {
-        if(this.status >= 200 && this.status < 300) {
-            console.log(this.response);
-            console.log(this.status);
+    return new Promise((resolve, reject) => {
+        var xhr = new XMLHttpRequest();
+        var params = `productId=${productId}&quantity=${quantity}`;
+        xhr.onload = function() {
+            if(this.status >= 200 && this.status < 300) {
+                console.log(this.response);
+                console.log(this.status);
+                resolve ({done: true, msg: this.statusText});
+            } else {
+                reject({done: false, msg: this.statusText});
+            }
         }
-    }
-    xhr.open('POST', '/products/cart')
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.send(params);
+        xhr.onerror = () => {
+            reject({done: false, msg: 'Network disconnected'});
+        }
+        xhr.open('POST', '/products/cart')
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send(params);
+
+    });
 }
 const updateCartItem = (quantity, productId) => {
-    var xhr = new XMLHttpRequest();
-    var params = `_method=patch&quantity=${quantity}&productId=${productId}`;
-    xhr.onload = function() {
-        if(this.status >= 200 && this.status < 300) {
-            console.log(this.response);
+    return new Promise((resolve, reject) => {
+        var xhr = new XMLHttpRequest();
+        var params = `_method=patch&quantity=${quantity}&productId=${productId}`;
+        xhr.onload = function() {
+            if(this.status >= 200 && this.status < 300) {
+                console.log(this.response);
+                resolve({done: true, msg: this.statusText});
+            }
+            reject({done: false, msg: this.statusText});
         }
-    }
-    xhr.open('POST', '/products/cart');
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.send(params);
+        xhr.onerror = function () {
+            reject({done: false, msg: 'check your network connection!'});
+        }
+        xhr.open('POST', '/products/cart');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send(params);
+    });
 }
 const unlinkCartItem = (productId) => {
-    var xhr = new XMLHttpRequest();
-    var params = `_method=delete&productId=${productId}`;
-    xhr.onload = function() {
-        if(this.status >= 200 && this.status < 300) {
-            console.log(this.statusText);
+    return new Promise((resolve, reject) => {
+        var xhr = new XMLHttpRequest();
+        var params = `_method=delete&productId=${productId}`;
+        xhr.onload = function() {
+            if(this.status >= 200 && this.status < 300) {
+                resolve({done: true, msg: this.statusText});
+            }
+            reject({done: false, msg: this.statusText});
         }
-    }
-    xhr.open('POST', '/products/cart');
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.send(params);
+        xhr.onerror = function() {
+            reject({done: false, msg: 'check your network connection!'});
+        }
+        xhr.open('POST', '/products/cart');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.send(params);
+    });
 }
