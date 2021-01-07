@@ -331,6 +331,8 @@ const mpesaLipaOnline = async(req, res) => {
         return securityKey;
     }    
 
+    console.log(`CART TOTAL PRICE`);
+    console.log(`${req.cartTotalPrice}`);
     var currentTime = formatDate(Date.now());
     let json = {
         "BusinessShortCode": bizShortCode,
@@ -379,8 +381,10 @@ const mpesaCallback = async (req, res) => {
 
     console.log('safaricom callback confirmation url');
     console.log(req.body.Body.stkCallback);
+    console.log(req.body.Body.stkCallback.ResultDesc);
     let reqBody = req.body.Body.stkCallback;
     var payer_id = reqBody.CheckoutRequestID;
+    var reason = req.body.Body.stkCallback.ResultDesc;
     var hasPaid = parseInt(reqBody.ResultCode) === 0;
     var failMsg = {
         "ResponseCode": "1",
@@ -420,8 +424,8 @@ const mpesaCallback = async (req, res) => {
         console.log('err is logged here');
         console.log(err);
         //ws for failed payment
-        // req.app.locals.cancel();
-        // res.json(failMsg);
+        req.app.locals.cancel();
+        res.json(failMsg);
     }
 }
 
