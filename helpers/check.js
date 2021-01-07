@@ -16,7 +16,11 @@ const checkAuth = (user = false) => {
     }
 }
 
-const trimPrice = (price) => parseFloat(price).toFixed(2);
+const trimPrice = (price) => {
+    const num = parseFloat(price).toFixed(2);
+    const number = parseFloat(num).toLocaleString('en-us');
+    return number;
+};
 
 module.exports = {
     checkAuth,

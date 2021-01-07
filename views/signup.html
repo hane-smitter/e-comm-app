@@ -1,62 +1,88 @@
-<section class="w3l-forms-main-61">
-    <div class="form-inner">
-        <div class="wrap">
-            <div class="d-grid top-form">
-                <div class="logo">
-                    <a class="brand-logo" href="index.html"><span>Mmusify Signup form</a>
-                    <!-- if logo is image enable this   
-                            <a class="brand-logo" href="#index.html">
-                                <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
-                            </a> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Sign Up | Mmusify</title>
+<!-- Meta tag Keywords -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="Mmusify sign up form responsive" />
+<!-- Meta tag Keywords -->
+
+<!-- loading fonts -->
+<link rel="preload" as="font" href="../public/util/fonts/Slaztone.otf"/>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200&display=swap" rel="stylesheet">
+<!-- //loading fonts -->
+
+<!-- css files -->
+<link rel="stylesheet" href="/css/font-awesome.css"> <!-- Font-Awesome-Icons-CSS -->
+<link rel="stylesheet" href="/css/signup.css" type="text/css" media="all" /> <!-- Style-CSS --> 
+<!-- //css files -->
+
+<noscript>This page needs javascript enabled to function properly!</noscript>
+</head>
+<body>
+    <section class="w3l-forms-main-61">
+        <div class="form-inner">
+            <div class="wrap">
+                <div class="d-grid top-form">
+                    <div class="logo">
+                        <a class="brand-logo" href="/za"><span>mmusify</a>
+                        <!-- if logo is image enable this   
+                                <a class="brand-logo" href="#index.html">
+                                    <img src="image-path" alt="Your logo" title="Your logo" style="height:35px;" />
+                                </a> -->
+                    </div>
+                </div>
+                <div class="form-bg-blur">
+                    <div class="form-61 form-register">
+                        <h4 class="form-head">Signup</h4>
+                        {{#if message.errors}}
+                            {{#each message.errors}}
+                            <p style="color: rgba(255, 0, 0, 0.788); text-align: center; line-height: 30px;">{{val}}</p>
+                            {{/each}}
+                        {{/if}}
+                        <form action="/za/signup" method="post" class="sign-up" onsubmit="return checkPass()">
+                            <div class="">
+                                <p class="text-head">First Name</p>
+                                <input type="text" class="input" name="firstName" {{#if message.firstName}} value= {{message.firstName}} {{/if}}  required />
+                            </div>
+                            <div class="">
+                                <p class="text-head">Last Name</p>
+                                <input type="text" class="input" name="lastName" {{#if message.lastName}} value= {{message.lastName}} {{/if}}  required />
+                            </div>
+                            <div class="">
+                                <p class="text-head">Email</p>
+                                <input type="email" class="input" name="email" {{#if message.email}} value= {{message.email}} {{/if}} required />
+                            </div>
+                            <div class="">
+                                <p class="text-head">Password</p>
+                                <input type="password" class="input" id="pass" name="password" required />
+                            </div>
+                            <div class="">
+                                <p class="text-head">Confirm password</p>
+                                <input type="password" class="input" id="confirmpass" name="confirmpass" required />
+                            </div>
+                            <label class="remember">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>I have read & agree to the <a href="#">terms of use</a>
+                            </label>
+                            <button type="submit" class="signinbutton btn">Signup</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="go-to-home text-center">
+                    <p>Already have an account? <a class="btn" href="/za/login">sign in</a></p>
                 </div>
             </div>
-            <div class="form-bg-blur">
-                <div class="form-61 form-register">
-                    <h4 class="form-head">Signup</h4>
-                    {{#if message.errors}}
-                        {{#each message.errors}}
-                        <p style="color: rgba(255, 0, 0, 0.788); text-align: center; line-height: 30px;">{{val}}</p>
-                        {{/each}}
-                    {{/if}}
-                    <form action="/za/signup" method="post" class="sign-up" onsubmit="return checkPass()">
-                        <div class="">
-                            <p class="text-head">First Name</p>
-                            <input type="text" class="input" name="firstName" {{#if message.firstName}} value= {{message.firstName}} {{/if}}  required />
-                        </div>
-                        <div class="">
-                            <p class="text-head">Last Name</p>
-                            <input type="text" class="input" name="lastName" {{#if message.lastName}} value= {{message.lastName}} {{/if}}  required />
-                        </div>
-                        <div class="">
-                            <p class="text-head">Email</p>
-                            <input type="email" class="input" name="email" {{#if message.email}} value= {{message.email}} {{/if}} required />
-                        </div>
-                        <div class="">
-                            <p class="text-head">Password</p>
-                            <input type="password" class="input" id="pass" name="password" required />
-                        </div>
-                        <div class="">
-                            <p class="text-head">Confirm password</p>
-                            <input type="password" class="input" id="confirmpass" name="confirmpass" required />
-                        </div>
-                        <label class="remember">
-                            <input type="checkbox">
-                            <span class="checkmark"></span>I have read & agree to the <a href="#">terms of use</a>
-                        </label>
-                        <button type="submit" class="signinbutton btn">Signup</button>
-                    </form>
+            <div class="copyright text-center">
+                <div class="wrapper">
+                    <p class="copy-footer-29">© 2021 Mmusify. All rights reserved</p>
                 </div>
             </div>
-            <!-- <div class="go-to-home text-center">
-                <p>Already have an account? <a class="btn" href="login.html"> Signin </a></p>
-            </div> -->
         </div>
-        <!-- <div class="copyright text-center">
-            <div class="wrapper">
-                <p class="copy-footer-29">© 2020 Desk Signup form. All rights reserved | Designed by <a
-                        href="https://w3layouts.com">W3layouts</a></p>
-            </div>
-        </div> -->
-    </div>
-</section>
-<script src="/js/script.js"></script>
+    </section>
+    <script src="/js/script.js"></script>
+    <script src="/js/prep.js"></script>
+</body>
+</html>

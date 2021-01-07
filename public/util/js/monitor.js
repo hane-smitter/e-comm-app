@@ -51,7 +51,6 @@ const fetchCartItems = () => {
     var xhr = new XMLHttpRequest();
     xhr.onload = function() {
         if(this.status >= 200 && this.status < 300) {
-            console.log(this.response);
             //after getting data, display to page
 
             let cartProducts = this.response;
@@ -66,7 +65,7 @@ const fetchCartItems = () => {
                     <div class="group">
                         <span class="title">${cartProduct.name}</span>
 
-                        <div class="item-price">KES. ${(cartProduct.price).toFixed(2)}</div>
+                        <div class="item-price">KES. ${parseFloat((cartProduct.price).toFixed(2)).toLocaleString('en-us')}</div>
                     </div>
 
         

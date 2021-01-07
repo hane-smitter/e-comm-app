@@ -1,4 +1,3 @@
-console.log('hello prep js');
 const txtInputs = document.querySelectorAll('input[type="text"]');
 const mailInputs = document.querySelectorAll('input[type="email"]');
 

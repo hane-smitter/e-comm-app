@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/font-awesome.css">
+    <link rel="stylesheet" href="/css/style.css" type="text/css" media="all" />
+    <title>Check out</title>
+    <noscript>This page cannot work without javascript enabled!</noscript>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+  <div class="main-banner inner">
+    {{>header}}
+</div>
+
+<section class="container bg-dark text-light my-3 payment-section">
+    <div class="product">
+        <div style="width: 200px;">
+            
+        </div>
+        <div class="description">
+          <h3>Your cart grosses at:</h3>
+          <h5>KES {{{cartTotalPrice}}}</h5>
+        </div>
+    </div>
+    <style>
+      .payment-section {
+        position: relative;
+        z-index: 100;
+      }
+      .mpesa {
+        position: relative;
+        padding: 5px 15px;
+        width: max-content;
+        cursor: pointer;
+      }
+      .mpesa form#phone {
+        background: linear-gradient(45deg, #fefe, #fff);
+        min-width: 20em;
+        border-radius: 3px;
+        overflow: hidden;
+      }
+      .group {
+        margin: 5px 0;
+        margin-bottom: 0;
+        width: 100%;
+      }
+      .group .phone-number {
+        padding: .2em 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 5px 0 10px 0;
+      }
+      .mpesa form label {
+        margin: 0 10px 0 0;
+      }
+      .mpesa form input {
+        width: 60%;
+      }
+      .hide {
+        display: none;
+      }
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, .7);
+        display: grid;
+        justify-items: center;
+        align-items: center;
+      }
+    </style>
+    <!-- checkout options -->
+    <button id="stripe-button">Pay with Bank Card</button>
+    <div class="mpesa bg-success">
+      <span class="text">Lipa Na Mpesa</span>
+      <div>
+        <form action="/lipa" method="post" class="hide" id="phone">
+          <div class="group">
+            <p class="lead mb-0 text-center font-weight-normal">Enter your phone number</p>
+            <div class="phone-number">
+              <label for="phone-number-input" style="color: #333;">+254</label>
+              <input type="tel" maxlength="9" minlength="9" placeholder="7xxxxxxxx" id="phone-number-input" required>
+            </div>
+            <button type="submit" class="btn btn-info btn-sm btn-block">Pay Now</button>
+          </div>
+        </form>
+      </div>
+    </div>
+</section>
+
+{{>footer}}
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/paymentProcessor.js"></script>
+<script src="/js/paymentProcessor2.js"></script>
+</body>
+</html>

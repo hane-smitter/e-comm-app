@@ -4,27 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/bootstrap.css">
-    <link href="/css/errors.css" rel="stylesheet">
+    <link rel="preload" as="style" href="/css/errors.css" onload="this.rel='stylesheet'">
+    <link href="/css/font-awesome.css" rel="stylesheet">
+    <script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script>
     <title>sell on mmusify</title>
+
+    <noscript>This page needs javascript enabled to function properly!</noscript>
 </head>
 <body>
     <h2>Sell with MMUSIFY</h2>
 <h4>upload your product with us</h4>
 {{#if errors}}
     {{#each errors}}
-        <p style="color: var(--red);" class="bg-warning text-center">{{err}}</p>
+    <div class="container upload-feed">
+        <div class="row">
+            <div class="col-11">
+                <p class="bg-warning text-center text-dark">{{err}}</p>
+            </div>
+            <div class="col-1 close-feed">
+                <i class="fa fa-remove"></i>
+            </div>
+        </div>
+    </div>
     {{/each}}
 {{/if}}
 
 {{#if success}}
-    <p class="bg-success text-center">{{success}}</p>
+<div class="container upload-feed">
+    <div class="row">
+        <div class="col-11">
+            <p class="bg-success text-light text-center text-light">{{success}}</p>
+        </div>
+        <div class="col-1 close-feed">
+            <i class="fa fa-remove"></i>
+        </div>
+    </div>
+</div>
 {{/if}}
 <form action="/upload" method="post" enctype="multipart/form-data" onsubmit="return controlSubmit()">
     <label for="name">Name:</label>
     <input type="text" name="name" id="name" value="{{#if values}}{{values.name}}{{/if}}" placeholder="name of your product" required>
     <br>
     <label for="price">Price(KES):</label>
-    <input type="text" name="price" id="price" value="{{#if values}}{{values.price}}{{/if}}" placeholder="for example, 2.58" required>
+    <input type="text" name="price" id="price" value="{{#if values}}{{values.price}}{{/if}}" placeholder="for example: 150" required>
     <br>
     <label for="description">Description:</label>
     <textarea name="description" id="description" >
@@ -36,17 +58,16 @@
     <br>
     <button type="submit" class="btn mt-4">Upload</button>
 </form>
-<script src="/js/upload.js"></script>
-<script src="https://cdn.ckeditor.com/ckeditor5/24.0.0/classic/ckeditor.js"></script>
 <script>
     ClassicEditor
         .create( document.querySelector( '#description' ), {
-            toolbar: [ 'bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote', 'link', 'indent' ]
+            toolbar: [ 'bold', 'italic', 'bulletedList', 'numberedList', 'blockQuote', 'link' ]
         } )
         .catch( error => {
             console.error( error );
         } );
 
 </script>
+<script src="/js/upload.js"></script>
 </body>
 </html>

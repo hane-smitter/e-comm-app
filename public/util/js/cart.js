@@ -34,7 +34,7 @@ for(let i = 0; i < addToCartBtns.length; i++) {
         });
 
         if(itemExists) {
-            alert('item already in cart');
+            alert('Item already in cart');
             return;
         }
         //create cart item on the server side
@@ -80,7 +80,7 @@ for(let i = 0; i < addToCartBtns.length; i++) {
                 cartItemsContainer.insertAdjacentHTML('afterbegin', html); 
 
                 //adding more information to msg
-                msg += '!Added to cart.'
+                msg += '! Added to cart.'
                 cartActivityFeed(done, msg);
                 this.disabled = false;
             }, ({done, msg} = err) => {
@@ -91,10 +91,10 @@ for(let i = 0; i < addToCartBtns.length; i++) {
 }
 
 
-/* function definitions */
+/* FUNCTION DEFINITIONS */
 //cart activity feeds
 function cartActivityFeed(done, msg) {
-    if(document.querySelector('.cart-action-feeds')) {
+    if(document.body.contains(document.querySelector('.cart-action-feeds'))) {
         document.querySelector('.cart-action-feeds').remove();
         clearTimeout(window.timeOutId);
     }
@@ -117,7 +117,15 @@ function cartActivityFeed(done, msg) {
 function countCartItems() {
     cartNumberOfChildren = cartItemsContainer.childElementCount;
     cartIcon.setAttribute('data-num', cartNumberOfChildren);
-
+    if(cartNumberOfChildren < 1) {
+        cartItemsContainer.classList.add('empty');
+        document.querySelector('.purchase-btn').href = '#';
+        document.querySelector('.purchase-btn').classList.add('disabled');
+    } else {
+        cartItemsContainer.classList.remove('empty');
+        document.querySelector('.purchase-btn').href = '/checkout';
+        document.querySelector('.purchase-btn').classList.remove('disabled');
+    }
 }
 //wiring up cart total
 function updateCartTotal() {
@@ -129,7 +137,7 @@ function updateCartTotal() {
         let txtPrice = cartProductItems[i].getElementsByClassName('item-price')[0].textContent;
         
         let priceArr = txtPrice.split('.');
-        let price = parseFloat(priceArr[1] + '.' + priceArr[priceArr.length - 1]);
+        let price = parseFloat((priceArr[1] + '.' + priceArr[priceArr.length - 1]).replace(/,/g, ''));
 
         let quantity = cartProductItems[i].querySelector('.quantity input').value;
         quantity = parseInt(quantity);
@@ -137,7 +145,7 @@ function updateCartTotal() {
         price *= quantity;
 
         totalCartPrice += price;
-        cartTotalPrice.textContent = totalCartPrice.toFixed(2);
+        cartTotalPrice.textContent = parseFloat(totalCartPrice.toFixed(2)).toLocaleString('en-us');
     }
 }
 
@@ -154,16 +162,17 @@ for(let i = 0; i < removeCartItemBtns.length; i++) {
 }
 
 //add quantity correctly
-function  quantityPlus() {
+function  quantityPlus(event) {
     this.disabled = true;
     let cartQuantityInput = event.currentTarget.previousElementSibling;
     let productId = event.currentTarget.dataset.itemId;
     let current = parseInt(cartQuantityInput.value);
+    current = ++current;
 
     updateCartItem(current, productId)
         .then(() => {
             updateCartTotal();
-            cartQuantityInput.value = ++current;
+            cartQuantityInput.value = current;
             this.disabled = false;
         }, ({done, msg} = err) => {
             cartActivityFeed(done, msg);
@@ -171,17 +180,18 @@ function  quantityPlus() {
         }); 
 }
 //reduce quantity correctly
-function  quantityMinus() {
+function  quantityMinus(event) {
     this.disabled = true;
     cartQuantityInput = event.currentTarget.nextElementSibling;
     let productId = event.currentTarget.dataset.itemId;
     let current = parseInt(cartQuantityInput.value);
+    //decrement by 1
+    current = --current;
+    if(current < 1) {
+        current = 1;
+    }
     updateCartItem(current, productId)
         .then(() => {
-            current = --current;
-            if(current < 1) {
-                return cartQuantityInput.value = 1;
-            }
             cartQuantityInput.value = current;
             updateCartTotal();
             this.disabled = false;
@@ -197,7 +207,7 @@ function removeCartItem() {
     unlinkCartItem(productId)
         .then(({done, msg} = data) => {
             this.parentElement.remove();
-            msg += '!Item removed.';
+            msg += '! Item removed.';
             cartActivityFeed(done, msg);
         }, ({done, msg} = err) => {
             cartActivityFeed(done, msg);

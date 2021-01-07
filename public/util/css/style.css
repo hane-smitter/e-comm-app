@@ -71,8 +71,6 @@ ol {
 /* CSS Document */
 
 header {
-    position: absolute;
-    z-index: 9;
     width: 100%;
 }
 
@@ -607,6 +605,7 @@ ul.tic-info li {
     border: 1px solid #e4e4e4;
     transform: translateY(0);
     transition: box-shadow,transform 200ms ease-in;
+    cursor: pointer;
 }
 
 .item-info-product h4 a {
@@ -777,6 +776,7 @@ ul.list-unstyled.w3layouts-icons.clients li span:hover {
     font-weight: 600;
     text-decoration:none;
     color:#333;
+    text-shadow: 0px 0px 5px #fff;
 }
 h4.group.card-title {
     font-size: 1.2em;
@@ -859,7 +859,7 @@ li.cart:hover::after {
     cursor: pointer;
 }
 aside.cart-container {
-    border-radius: 50px;
+    border-radius: 15px;
     background: #efeeee;
     box-shadow:  20px 20px 60px #cbcaca, 
                 -20px -20px 60px rgba(255, 255, 255, .7);
@@ -880,6 +880,23 @@ aside.cart-container .cart-items img {
 aside.cart-container .cart-items {
     display: flex;
     flex-direction: column;
+    min-height: 10em;
+    position: relative;
+}
+aside.cart-container .cart-items.empty::before {
+    content: 'Your cart is empty!';
+    color: #6c757d;
+    text-shadow: 2px 4px 3px rgba(255,255,255,0.7);
+    font-size: 1.4em;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('/images/empty-cart.svg') center center / contain no-repeat;
 }
 aside.cart-container .cart-items .item {
     display: flex;
@@ -1649,15 +1666,19 @@ a.move-top span {
     .item-info-product h4 a {
         font-size: 14px;
     }
-    .product-men {
-        margin-bottom: 1em;
-        float: left;
-        width: 100%;
+    .product-men span.product-new-top, .product-men .item-info-product .stars {
+        display: none;
     }
-    .gd-bottom {
-        float: left;
-        width: 100%;
-        margin-top: 1em;
+    .feature-grids.px-3 {
+        padding-left: 0!important;
+        padding-right: 0!important;
+    }
+    .feature-grids .bottom-gd > div {
+        padding-left: 5px!important;
+        padding-right: 5px!important;
+    }
+    .feature-grids .gd-bottom .bottom-gd {
+        border-radius: 10px;
     }
 
 }
