@@ -420,8 +420,8 @@ const mpesaCallback = async (req, res) => {
         console.log('err is logged here');
         console.log(err);
         //ws for failed payment
-        req.app.locals.cancel();
-        res.json(failMsg);
+        // req.app.locals.cancel();
+        // res.json(failMsg);
     }
 }
 
