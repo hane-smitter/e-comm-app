@@ -489,6 +489,8 @@ const paymentCancel = (req, res) => {
         default:
             break;
     }
+    console.log('payment cancel');
+    console.log(msg);
 
     res.render('paymentCancel', { layout: 'payfail', msg });
 }
