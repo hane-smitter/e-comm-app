@@ -434,8 +434,10 @@ const paymentSuccess = (req, res) => {
 
 //stripe unsuccessful payment
 const paymentCancel = (req, res) => {
-    let errCode = req.query.err;
+    let errCode = parseInt(req.query.err);
+    console.log(typeof req.query.err);
     console.log('errCode');
+    console.log(typeof errCode);
     console.log(errCode);
     let msg = 'not set yet';
     switch (errCode) {
