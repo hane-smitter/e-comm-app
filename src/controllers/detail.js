@@ -435,7 +435,9 @@ const paymentSuccess = (req, res) => {
 //stripe unsuccessful payment
 const paymentCancel = (req, res) => {
     let errCode = req.query.err;
-    let msg;
+    console.log('errCode');
+    console.log(errCode);
+    let msg = 'not set';
     switch (errCode) {
         case 1:
             msg = 'Insufficient Funds'
