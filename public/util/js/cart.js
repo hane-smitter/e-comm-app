@@ -171,8 +171,8 @@ function  quantityPlus(event) {
 
     updateCartItem(current, productId)
         .then(() => {
-            updateCartTotal();
             cartQuantityInput.value = current;
+            updateCartTotal();
             this.disabled = false;
         }, ({done, msg} = err) => {
             cartActivityFeed(done, msg);
