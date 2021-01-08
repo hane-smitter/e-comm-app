@@ -226,8 +226,8 @@ const paymentCheckout = (req, res) => {
         let paid = () => {
             socket.emit('success');
         }
-        let cancel = () => {
-            socket.emit('cancel');
+        let cancel = (code) => {
+            socket.emit('cancel', code);
         }
 
         req.app.locals.paid = paid;
@@ -417,14 +417,12 @@ const mpesaCallback = async (req, res) => {
             res.json(successMsg);
         }
         else {
-            throw new Error('payment not successful!');
+            throw new Error(reqBody.ResultCode);
         }
     } catch (err) {
         await Payment.findOneAndDelete({payer_id});
-        console.log('err is logged here');
-        console.log(err);
         //ws for failed payment
-        req.app.locals.cancel();
+        req.app.locals.cancel(err.message);
         res.json(failMsg);
     }
 }
@@ -436,7 +434,63 @@ const paymentSuccess = (req, res) => {
 
 //stripe unsuccessful payment
 const paymentCancel = (req, res) => {
-    res.render('paymentCancel', { layout: 'payfail' });
+    let errCode = req.query.err;
+    let msg;
+    switch (errCode) {
+        case 1:
+            msg = 'Insufficient Funds'
+            break;
+        case 2:
+            msg = 'Less Than Minimum Transaction Value'
+            break;
+        case 3:
+            msg = 'More Than Maximum Transaction Value'
+            break;
+        case 4:
+            msg = 'Would Exceed Daily Transfer Limit'
+            break;
+        case 5:
+            msg = 'Would Exceed Minimum Balance'
+            break;
+        case 6:
+            msg = 'Unresolved Primary Party'
+            break;
+        case 7:
+            msg = 'Unresolved Receiver Party'
+            break;
+        case 8:
+            msg = 'Would Exceed Maxiumum Balance'
+            break;
+        case 11:
+            msg = 'Debit Account Invalid'
+            break;
+        case 12:
+            msg = 'Credit Account Invalid'
+            break;
+        case 13:
+            msg = 'Unresolved Debit Account'
+            break;
+        case 14:
+            msg = 'Unresolved Credit Account'
+            break;
+        case 15:
+            msg = 'Duplicate Detected'
+            break;
+        case 17:
+            msg = 'Mpesa Internal Failure'
+            break;
+        case 20:
+            msg = 'Unresolved Initiator'
+            break;
+        case 26:
+            msg = '	Traffic blocking condition in place'
+            break;
+    
+        default:
+            break;
+    }
+
+    res.render('paymentCancel', { layout: 'payfail', msg });
 }
 
 //about

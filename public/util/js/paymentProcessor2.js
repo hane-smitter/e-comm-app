@@ -2,8 +2,8 @@ const socket = io();
 socket.on('success', () => {
     window.location.href = '/success';
 });
-socket.on('cancel', () => {
-    window.location.href = '/cancel';
+socket.on('cancel', (code) => {
+    window.location.href = '/cancel?err=' + code;
 });
 let mpesaDiv = document.getElementsByClassName('mpesa')[0];
 let phoneForm = document.getElementById('phone');

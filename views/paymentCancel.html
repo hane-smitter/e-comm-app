@@ -4,6 +4,11 @@
 
 <h1>Payment cancelled</h1>
 <p class="h4">Your payment was not complete</p>
+{{#if msg}}
+<div class="bg-info p-2">
+    <p class="lead">{{msg}}</p>
+</div>
+{{/if}}
 <p class="lead">Forgot to add something to your cart?</p>
 <p class="text-muted">Go back then come back to pay.</p>
 
