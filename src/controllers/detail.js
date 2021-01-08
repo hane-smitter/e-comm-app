@@ -437,56 +437,40 @@ const paymentCancel = (req, res) => {
     let errCode = req.query.err;
     console.log('errCode');
     console.log(errCode);
-    let msg = 'not set';
+    let msg = 'not set yet';
     switch (errCode) {
         case 1:
-            msg = 'Insufficient Funds'
-            break;
+            return msg = 'Insufficient Funds';
         case 2:
-            msg = 'Less Than Minimum Transaction Value'
-            break;
+            return msg = 'Less Than Minimum Transaction Value';
         case 3:
-            msg = 'More Than Maximum Transaction Value'
-            break;
+            return msg = 'More Than Maximum Transaction Value';
         case 4:
-            msg = 'Would Exceed Daily Transfer Limit'
-            break;
+            return msg = 'Would Exceed Daily Transfer Limit';
         case 5:
-            msg = 'Would Exceed Minimum Balance'
-            break;
+            return msg = 'Would Exceed Minimum Balance';
         case 6:
-            msg = 'Unresolved Primary Party'
-            break;
+            return msg = 'Unresolved Primary Party';
         case 7:
-            msg = 'Unresolved Receiver Party'
-            break;
+            return msg = 'Unresolved Receiver Party';
         case 8:
-            msg = 'Would Exceed Maxiumum Balance'
-            break;
+            return msg = 'Would Exceed Maxiumum Balance';
         case 11:
-            msg = 'Debit Account Invalid'
-            break;
+            return msg = 'Debit Account Invalid';
         case 12:
-            msg = 'Credit Account Invalid'
-            break;
+            return msg = 'Credit Account Invalid';
         case 13:
-            msg = 'Unresolved Debit Account'
-            break;
+            return msg = 'Unresolved Debit Account';
         case 14:
-            msg = 'Unresolved Credit Account'
-            break;
+            return msg = 'Unresolved Credit Account';
         case 15:
-            msg = 'Duplicate Detected'
-            break;
+            return msg = 'Duplicate Detected';
         case 17:
-            msg = 'Mpesa Internal Failure'
-            break;
+            return msg = 'Mpesa Internal Failure';
         case 20:
-            msg = 'Unresolved Initiator'
-            break;
+            return msg = 'Unresolved Initiator';
         case 26:
-            msg = '	Traffic blocking condition in place'
-            break;
+            return msg = '	Traffic blocking condition in place';
     
         default:
             break;
