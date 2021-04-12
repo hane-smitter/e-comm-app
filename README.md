@@ -1,6 +1,6 @@
-# E-comm-proj project
+# E-comm-app project
 
-E-comm-proj is a project I built from scratch to serve as an online store to sell products specifically shoes in the internet scope.<br>
+E-comm-app is a project I built from scratch to serve as an online store to sell products specifically shoes in the internet scope.<br>
 *[Click here](https://mmusify.herokuapp.com)* to see live version of the app.<br>
 
 ## Getting started
@@ -13,7 +13,7 @@ git clone  https://github.com/hane-smitter/e-comm-proj.git
 
 - Enter into the root of the project directory
 ```
-cd e-comm-proj
+cd e-comm-app
 ```
 - Configure the app with some configurations.
 - Create folder **config**
