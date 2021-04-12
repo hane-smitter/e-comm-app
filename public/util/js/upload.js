@@ -18,7 +18,6 @@ window.addEventListener('load', () => {
 })
 
 priceInput.oninput = () => {
-    console.log(inpValue);
     inpValue = priceInput.value;
     if(isNaN(inpValue)) {
         error = true;
