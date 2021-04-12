@@ -65,9 +65,9 @@ touch config.env-cmdrc
 | SESSION_SECRET     | App uses session for creating stateful http requests and the session needs this value to be signed. | *No Default* |
 | GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET     | Google [cloud console](https://console.cloud.google.com) API keys for creating the functionality of signing in using your google account | *No Default* |
 | MONGODB_URL     | Connection URL to your Mongodb database. If you are using mongodb installed locally, mostly will be something like: *mongodb://127.0.0.1:27017/task-manager-api* | *No Default* |
-| MPESA_CONSUMER_KEY, MPESA_CONSUMER_SECRET_KEY, LIPA_NA_MPESA_ONLINE_PASSKEY     | API keys provided by (safaricom)[https://developer.safaricom.co.ke] for functionality of payment using M-PESA services. In the safaricom developer portal, get the api keys for LIPA NA MPESA and CONSUMER. A test paybill number is provided | *No Default* |
+| MPESA_CONSUMER_KEY, MPESA_CONSUMER_SECRET_KEY, LIPA_NA_MPESA_ONLINE_PASSKEY     | API keys provided by [safaricom](https://developer.safaricom.co.ke) for functionality of payment using M-PESA services. In the safaricom developer portal, get the api keys for LIPA NA MPESA and CONSUMER. A test paybill number is provided | *No Default* |
 | LIPA_NA_MPESA_CB_URL     | This is the callback url that safaricom will call to provide information of the payment that has taken place. | *No Default* |
-| STRIPE_PUB_KEY, STRIPE_PRIV_KEY     | API keys provided by (stripe)[https://stripe.com] to enable financial services in the application. | *No Default* |
+| STRIPE_PUB_KEY, STRIPE_PRIV_KEY     | API keys provided by [stripe](https://stripe.com) to enable financial services in the application. | *No Default* |
 | NODE_ENV           | Environment that your application is running in. Environment is chosen by starting the application using different commands. See below on how to start application in production and development modes.          |  *No Default*      |
 
 - Get back to the root of the project
